@@ -2,6 +2,9 @@
 blacklistfile=$(<./blacklist)
 blacklist=(  )
 
+echo -e "\nBlacklist:"
+printf '%s\n' "${blacklist[@]}"
+
 while read -r blacklistItem; do
     blacklist+=( "$blacklistItem" )
 done <<< "$blacklistfile"
@@ -19,24 +22,20 @@ function findCurrentWindow {
 # Make a program freeze
 function freeze { 
 	nameOfApp=$1
-	echo "Freezing $nameOfApp"
-	killall -v -STOP $nameOfApp
+	killall -STOP $nameOfApp
 }
 
 # Wake up program
 function defrost { 
 	nameOfApp=$1
 	echo "Defrosting $nameOfApp"
-	killall -v -CONT $nameOfApp
+	killall -CONT $nameOfApp
 }
 
 ## Find blacklisted apps and freeze them
 
 # Make sleepers sleep
 function freezeManager { 
-
-	echo -e "\nBlacklist:"
-	printf '%s\n' "${blacklist[@]}"
 
 	findCurrentWindow
 	doNotFreeze=$currentWindow
