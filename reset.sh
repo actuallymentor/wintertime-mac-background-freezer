@@ -5,11 +5,14 @@ while read -r blacklistItem; do
     blacklist+=( "$blacklistItem" )
 done <<< "$blacklistfile"
 
+# Be verbose to the terminal
+echo -e "\n\n-----\nExit task: Unfrosting all apps in your blacklist\n-----\n"
+
 # Wake up program
 function defrost { 
 	nameOfApp=$1
 	echo "Defrosting $nameOfApp"
-	killall -v -CONT $nameOfApp
+	pkill -CONT -u $(whoami) $nameOfApp
 }
 
 # Wake everything up

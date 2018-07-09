@@ -1,13 +1,19 @@
+# If the sc ript is cancelled, reset everything
+trap 'bash ./reset.sh; exit 0;' 1 2 3 6
+
+# Manual
+echo -e "\nThis script will freeze the processes in the blacklist file when they are not in focus. When you exit the script using ctrl+C all applications in the blacklist are defrosted.\n"
+
 # Read blacklist
 blacklistfile=$(<./blacklist)
-blacklist=(  )
-
-echo -e "\nBlacklist:"
-printf '%s\n' "${blacklist[@]}"
+blacklist=()
 
 while read -r blacklistItem; do
     blacklist+=( "$blacklistItem" )
 done <<< "$blacklistfile"
+
+echo -e "\nBlacklist:"
+printf '%s\n' "${blacklist[@]}"
 
 # Placeholder for current window
 currentWindow=''
@@ -22,14 +28,13 @@ function findCurrentWindow {
 # Make a program freeze
 function freeze { 
 	nameOfApp=$1
-	killall -STOP $nameOfApp
+	pkill -STOP -u $(whoami) $nameOfApp
 }
 
 # Wake up program
 function defrost { 
 	nameOfApp=$1
-	echo "Defrosting $nameOfApp"
-	killall -CONT $nameOfApp
+	pkill -CONT -u $(whoami) $nameOfApp
 }
 
 ## Find blacklisted apps and freeze them
