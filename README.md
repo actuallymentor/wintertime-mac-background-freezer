@@ -10,7 +10,7 @@ Step 1: start by cloning this repository:
 git clone https://github.com/actuallymentor/mac-freeze-background.git
 ```
 
-Step 2: the script reads the `blacklist` file. Add names of programs you want to freeze to this file.
+Step 2: the script reads the `blacklist` file. Add names of programs you want to freeze to this file. The blacklist supports Regex, in the sample blacklist you can see `Microsoft.*` which would match `Microsoft Word` as well as `Microsoft Excel` and so on.
 
 Step 3: start the script when you want to freeze applications by running `bash ./freeze.sh` while inside the directory that you cloned this repository to.
 
