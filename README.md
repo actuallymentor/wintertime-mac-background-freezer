@@ -1,10 +1,14 @@
 # Mac Freeze Background Apps
 
-This script freezes processes that are not in focus (foreground). I use it to freeze applications like internet browsers and electron based applications from eating my battery.
+Sometimes applications start using a lot of CPU (and thus battery) for no apparent reason. It sucks when you are at home, but it sucks more when you are on the go operating on battery.
+
+This script freezes processes that are not in focus (foreground). I use it to prevent applications like internet browsers, graphical processing and electron based applications from eating my battery.
+
+Tested on High Sierra 10.13.5.
 
 ## Usage
 
-Step 1: start by cloning this repository:
+Step 1: clone this repository:
 
 ```bash
 git clone https://github.com/actuallymentor/mac-freeze-background.git

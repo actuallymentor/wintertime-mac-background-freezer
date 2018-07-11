@@ -12,8 +12,9 @@ while read -r blacklistItem; do
     blacklist+=( "$blacklistItem" )
 done <<< "$blacklistfile"
 
-echo -e "\nBlacklist:"
+echo -e "\nBlacklist:\n---------\n"
 printf '%s\n' "${blacklist[@]}"
+echo -e "\n"
 
 # Placeholder for current window
 currentWindow=''

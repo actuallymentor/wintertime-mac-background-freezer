@@ -6,7 +6,7 @@ while read -r blacklistItem; do
 done <<< "$blacklistfile"
 
 # Be verbose to the terminal
-echo -e "\n\n-----\nExit task: Unfrosting all apps in your blacklist\n-----\n"
+echo -e "\n\n-----\nExit task: Defrosting all apps in your blacklist\n-----\n"
 
 # Wake up program
 function defrost { 
@@ -19,3 +19,6 @@ function defrost {
 for item in "${blacklist[@]}"; do
 	defrost $item
 done
+
+# I'm a sucker for whitespace
+echo -e "\n"
