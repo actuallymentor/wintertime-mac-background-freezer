@@ -1,0 +1,24 @@
+* {
+	max-width: 100%;
+	box-sizing: border-box;
+}
+body {
+	background: #efefef;
+	text-align: center;
+}
+
+form {
+	width: 100%;
+	padding: 10px;
+}
+
+#blocklist {
+	width: 100%;
+	text-align: center;
+	padding: 10px;
+	border: none;
+}
+
+#freeze {
+	width: 100%;
+}

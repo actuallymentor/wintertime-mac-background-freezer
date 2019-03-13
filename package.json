@@ -1,0 +1,25 @@
+{
+  "name": "Wintertime",
+  "version": "0.0.1",
+  "description": "Freeze background apps",
+  "main": "app.js",
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^4.0.8",
+    "electron-reload": "^1.4.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/actuallymentor/mac-freeze-background.git"
+  },
+  "author": "Mentor Palokaj <mentor@palokaj.co> (http://github.com/actuallymentor)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/actuallymentor/mac-freeze-background/issues"
+  },
+  "homepage": "https://github.com/actuallymentor/mac-freeze-background#readme"
+}

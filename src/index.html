@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <script src="./main.js"></script>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+  </head>
+  <body>
+    <h1 id="title"></h1>
+    <a id='askhelp' href="#">Toggle help</a>
+    <p id='help' style='display: none;'>The area below accepts one process name pattern per line (regex compatible). For example "Google Chrome.*" would match all "Google Chrome" but also "Google Chrome Helper" processes.</p>
+    <form id='form'>
+      <textarea placeholder="Google Chrome.*" id='blocklist'></textarea>
+      <input value='Save & Start Freezing' type="submit">
+    </form>
+    <input id='stop' value='Stop Freezing' type="submit">
+    
+  </body>
+</html>
