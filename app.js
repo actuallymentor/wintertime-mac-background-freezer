@@ -64,6 +64,10 @@ const view = new Window()
 
 // Application configs
 app.on( 'ready', f => view.init() )
+app.on( 'window-all-closed', f => {
+  globalBlocklist.map( item => unBlock( item ) )
+  app.quit()
+} )
 app.on( 'activate', f => view.reload() )
 
 // Backend functionality
