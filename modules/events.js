@@ -14,7 +14,10 @@ class WindowListener {
 
 	checkWindow() {
 		return getWindow()
-		.then( currentApp => currentApp != this.window && this.updateWindow( currentApp ) )
+		.then( currentApp => {
+			if( currentApp != this.window ) this.updateWindow( currentApp )
+			return currentApp
+		} )
 	}
 
 	updateWindow( current ) {

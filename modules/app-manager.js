@@ -77,8 +77,11 @@ class App {
 
       // Toggle on/off
       this.toggleBlocking()
+
       // If off restore all
-      this.globalBlocklist.map( item => unBlock( item ) )
+      if( !this.blocking ) this.globalBlocklist.map( item => unBlock( item ) )
+      // If blocking, manually trigger window check 
+      if( this.blocking ) this.currentWindow.checkWindow().then( currentApp => this.doBlocking( currentApp ) )
 
       // Save new data to config
       fs.writeFile( `${ homedir }/Library/Application Support/${ name.toLowerCase() }/blocklist`, this.globalBlocklist, 'utf8' )
@@ -95,9 +98,14 @@ class App {
 
     this.currentWindow.emitter.on( 'change', current => {
       if( this.debug ) console.log( 'Window changed to ', current )
-      if( this.blocking && this.globalBlocklist ) this.globalBlocklist.map( item => current.match( item ) ? unBlock( item ) : block( item ) )
+      this.doBlocking( current )
     } )
 
+  }
+
+  doBlocking( current ) {
+    if( this.debug ) console.log( 'Not blocking ', current )
+    if( this.blocking && this.globalBlocklist ) this.globalBlocklist.map( item => current.match( item ) ? unBlock( item ) : block( item ) )
   }
 
   render() {
