@@ -1,31 +1,34 @@
-# Mac Freeze Background Apps
+# Wintertime - Background App Freezer for Mac OSX
 
 Sometimes applications start using a lot of CPU (and thus battery) for no apparent reason. It sucks when you are at home, but it sucks more when you are on the go operating on battery.
 
-This script freezes processes that are not in focus (foreground). I use it to prevent applications like internet browsers, graphical processing and electron based applications from eating my battery.
+This application freezes processes that are not in focus (foreground). I use it to prevent applications like internet browsers, graphical processing and electron based applications from eating my battery.
 
 Tested on High Sierra 10.13.5.
 
+## Installation
+
+Install the latest version from the [releases tab]( ./releases ). 
+
 ## Usage
 
-Step 1: clone this repository:
+- Open the app
+- Change the preferences (or use the defaults)
+- Click 'Start freezing'
 
-```bash
-git clone https://github.com/actuallymentor/mac-freeze-background.git
-```
+When you want to stop the freezing process, click 'Stop freezing'.
 
-Step 2: the script reads the `blacklist` file. Add names of programs you want to freeze to this file. The blacklist supports Regex, in the sample blacklist you can see `Microsoft.*` which would match `Microsoft Word` as well as `Microsoft Excel` and so on.
+If some some reason one of the frozen apps stays frozen, use the 'Panic button' to unfrost everything on your system.
 
-Step 3: start the script when you want to freeze applications by running `bash ./freeze.sh` while inside the directory that you cloned this repository to.
+## What it does
 
-Exit instructions: when you want to stop freezing apps, exit the script with ctrl+C. It will automatically defrost the apps currently frozen.
+![ App Demo ]( ./src/demo.png )
 
-## Wishlist
+When you click freeze, the app will put the blacklisted apps in a 'Not Responding' mode, meaning they use 0% CPU. When you use yor mouse to click on a frozen window, it defrosts and re-opens.
 
-Ideally I will spend some time to:
 
-- Create an option to `whitelist` instead of blacklist
-- Create an option to freeze any background process using over x% CPU
-- Make a daemon out of this and add it to `brew`
+## Notes to developers
 
-If you have time to tackle the above pull requests are welcome.
+The app is GUI that runs `pkill -CONT -u $(whoami) -f REGEX` for every item in the blacklist.
+
+Pull requests for feature updates are welcome.

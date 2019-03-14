@@ -6,11 +6,15 @@
   "dependencies": {},
   "devDependencies": {
     "electron": "^4.0.8",
+    "electron-builder": "^20.39.0",
     "electron-reload": "^1.4.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "postinstall": "install-app-deps",
+    "start": "electron .",
+    "pack": "build --dir",
+    "dist": "build"
   },
   "repository": {
     "type": "git",
@@ -21,5 +25,15 @@
   "bugs": {
     "url": "https://github.com/actuallymentor/mac-freeze-background/issues"
   },
-  "homepage": "https://github.com/actuallymentor/mac-freeze-background#readme"
+  "homepage": "https://github.com/actuallymentor/mac-freeze-background#readme",
+  "build": {
+    "appId": "com.electron.wintertime",
+    "productName": "Wintertime",
+    "mac": {
+      "category": "public.app-category.productivity"
+    },    
+    "dmg": {
+      "title": "Wintertime Installer"
+    }
+  }
 }
