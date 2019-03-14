@@ -3,9 +3,10 @@
   "version": "0.0.3",
   "description": "Freeze background apps",
   "main": "app.js",
-  "dependencies": {},
+  "dependencies": {
+    "active-win": "^4.1.0"
+  },
   "devDependencies": {
-    "active-win": "^4.1.0",
     "electron": "^4.0.8",
     "electron-builder": "^20.39.0",
     "electron-reload": "^1.4.0"
