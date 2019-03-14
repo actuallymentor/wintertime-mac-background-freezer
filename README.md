@@ -32,3 +32,7 @@ When you click freeze, the app will put the blacklisted apps in a 'Not Respondin
 The app is GUI that runs `pkill -CONT -u $(whoami) -f REGEX` for every item in the blacklist.
 
 Pull requests for feature updates are welcome.
+
+## Questions / comments / thanks
+
+Give me a shout out on [ Twitter ]( https://twitter.com/actuallymentor ) on in the Issues tab. Expect it'll take me a few days to respond :)
