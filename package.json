@@ -5,6 +5,7 @@
   "main": "app.js",
   "dependencies": {},
   "devDependencies": {
+    "active-win": "^4.1.0",
     "electron": "^4.0.8",
     "electron-builder": "^20.39.0",
     "electron-reload": "^1.4.0"
