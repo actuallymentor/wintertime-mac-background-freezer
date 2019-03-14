@@ -1,5 +1,3 @@
-/*  Palette: https://www.materialpalette.com/cyan/amber */
-
 * {
 	max-width: 100%;
 }
@@ -31,9 +29,6 @@ p {
 #form {
 	padding: 10px;
 	box-sizing: border-box;
-	/*display: flex;
-    flex-direction: column;
-    align-items: center;*/
 }
 
 textarea#blocklist {
