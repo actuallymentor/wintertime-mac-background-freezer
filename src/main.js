@@ -9,37 +9,66 @@ const q = query => document.querySelector( query )
 document.addEventListener( 'DOMContentLoaded',  f => {
 
 	// Inits
-	document.title = name
-	q('#title' ).innerHTML = name
+	setTitle()
+	restoreConfig()
 
-	// Listeners
+	// Visual listeners
+	interactiveHelp()
+	interactiveInterface()
+
+	// Functionality
+	handleInteractions()
+
+} )
+
+
+// Set title to app name
+const setTitle = f => ( document.title = name ) && ( q('#title' ).innerHTML = name )
+
+// IPC comms
+const restoreConfig = f => {
+	// On restore response, parse data
+	ipcRenderer.on( 'restored-config-data', ( event, restoredBlocklist ) => {
+
+		// Turn the comma separated string into a newline delimited string
+		restoredBlocklist = restoredBlocklist.replace( /,/g, '\n' )
+		const blocklist = q( '#blocklist' )
+		blocklist.value = restoredBlocklist
+		blocklist.style.height = `${ blocklist.scrollHeight }px`
+	} )
+	// make restore request
+	ipcRenderer.send( 'restore-config', true )
+}
+
+const interactiveHelp = f => {
 	const helpfield = q( '#help' )
 	q( '#askhelp').addEventListener( 'click' , f => {
 		helpfield.style.display == 'none' ? helpfield.style.display = 'block' : helpfield.style.display = 'none'
 	} )
+}
 
-	// On restore response, parse data
-	ipcRenderer.on( 'blocklist', ( event, blocklist ) => {
-		q( '#blocklist' ).value = blocklist
-	} )
-	// make restore request
-	ipcRenderer.send( 'restore', true )
+const interactiveInterface =  f => {
 
 	// Resize test window
-	q( '#blocklist' ).addEventListener( 'keyup', ( { target } ) => target.style.height = `${ target.scrollHeight }px` )
+	const blocklist = q( '#blocklist' )
+	blocklist.style.height = `${ blocklist.scrollHeight + 20 }px`
+	blocklist.addEventListener( 'keyup', ( { target } ) => target.style.height = `${ target.scrollHeight + 20 }px` )
 
+}
 
+const handleInteractions = f => {
 	// On form submit
 	q( '#form' ).addEventListener( 'submit', event => {
 
 		event.preventDefault()
 		const { value } = event.target.blocklist
+		const button = q( '#start' )
+		button.value = button.value.includes( 'Start' ) ? 'Stop freezing' : 'Start freezing'
 		
 		ipcRenderer.send( 'block', value.split( '\n' ) )
 
 	} )
 
-	// On cancel
-	q( '#stop' ).addEventListener( 'click', f => ipcRenderer.send( 'stop', true ) )
-
-} )
+	// On panic
+	q( '#panic' ).addEventListener( 'click', f => ipcRenderer.send( 'panic', true ) )
+}

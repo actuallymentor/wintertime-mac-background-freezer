@@ -1,24 +1,85 @@
+/*  Palette: https://www.materialpalette.com/cyan/amber */
+
 * {
 	max-width: 100%;
-	box-sizing: border-box;
 }
 body {
+
+
 	background: #efefef;
 	text-align: center;
+	font-family: Helvetica, sans-serif;
+
+
+	flex: 1;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+
 }
 
-form {
-	width: 100%;
+p {
+	margin: 0;
+	font-style: italic;
+}
+
+#form {
 	padding: 10px;
+	box-sizing: border-box;
+	/*display: flex;
+    flex-direction: column;
+    align-items: center;*/
 }
 
-#blocklist {
+textarea#blocklist {
+	box-sizing: border-box;
 	width: 100%;
+	margin: 10px 0;
 	text-align: center;
 	padding: 10px;
 	border: none;
+	background: white;
 }
 
 #freeze {
 	width: 100%;
+}
+
+#start {
+	background: #757575;
+}
+
+#start, #stop, #panic {
+	border: none;
+    padding: 10px;
+    margin: 10px;
+    font-size: 1rem;
+    box-sizing: content-box;
+    cursor: pointer;
+    color: white;
+    background: #757575;
+}
+
+#secondary {
+	display: flex;
+	flex-direction: row;
+}
+
+#askhelp {
+	text-decoration: none;
+	font-style: italic;
+	color: black;
+	background: #efefef;
+	padding: 10px 20px;
+}
+
+#help {
+	background: grey;
+    color: white;
+    padding: 10px;
 }
