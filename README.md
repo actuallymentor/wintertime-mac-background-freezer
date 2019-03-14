@@ -8,7 +8,7 @@ Tested on High Sierra 10.13.5.
 
 ## Installation
 
-Install the latest version from the [releases tab]( ./releases ). 
+Install the latest version from the [releases tab]( https://github.com/actuallymentor/wintertime-mac-background-freezer/releases ). 
 
 ## Usage
 
