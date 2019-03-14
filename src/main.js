@@ -51,8 +51,8 @@ const interactiveInterface =  f => {
 
 	// Resize test window
 	const blocklist = q( '#blocklist' )
-	blocklist.style.height = `${ blocklist.scrollHeight + 20 }px`
-	blocklist.addEventListener( 'keyup', ( { target } ) => target.style.height = `${ target.scrollHeight + 20 }px` )
+	blocklist.style.height = `${ blocklist.scrollHeight }px`
+	blocklist.addEventListener( 'keyup', ( { target } ) => target.style.height = `${ target.scrollHeight }px` )
 
 }
 
