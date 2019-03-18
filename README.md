@@ -10,6 +10,12 @@ Tested on High Sierra 10.13.5.
 
 Install the latest version from the [releases tab]( https://github.com/actuallymentor/wintertime-mac-background-freezer/releases ). 
 
+Or via homebrew:
+
+```shell
+brew cask install Wintertime
+```
+
 ## Usage
 
 - Open the app
