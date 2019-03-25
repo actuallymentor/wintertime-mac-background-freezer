@@ -57,18 +57,29 @@ const interactiveInterface =  f => {
 }
 
 const handleInteractions = f => {
-	// On form submit
-	q( '#form' ).addEventListener( 'submit', event => {
 
-		event.preventDefault()
-		const { value } = event.target.blocklist
+	const submitFormData = f => {
+
+		const form = q( '#form' )
+
+		if( process.env.debug ) console.log( 'Form submit triggered' ) 
+		const { value } = form.blocklist
 		const button = q( '#start' )
 		button.value = button.value.includes( 'Start' ) ? 'Stop freezing' : 'Start freezing'
 		
 		ipcRenderer.send( 'block', value.split( '\n' ) )
+	}
 
-	} )
+	// On form submit
+	form.addEventListener( 'submit', submitFormData )
 
 	// On panic
 	q( '#panic' ).addEventListener( 'click', f => ipcRenderer.send( 'panic', true ) )
+
+	// On backend keyboard shortcuit
+	ipcRenderer.on( 'keyboard-shortcut', ( event, content ) => {
+		if( process.env.debug ) console.log( content )
+		if( content == 'toggle-block' ) submitFormData()
+	} )
+
 }

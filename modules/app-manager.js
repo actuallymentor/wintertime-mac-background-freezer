@@ -33,8 +33,6 @@ class App {
 
   toggleBlocking( ) {
     this.blocking = !this.blocking
-    if( !this.blocking ) panicUnblockAll()
-    if( this.blocking ) this.doBlocking
   }
 
   configElectron() {
@@ -52,9 +50,8 @@ class App {
   }
 
   registerShortcuts( ) {
-    const registration = globalShortcut.register( this.shortcut, f => this.toggleBlocking() )
-    if( !registration ) console.log( 'Shortcut not registered' )
-    console.log( globalShortcut.isRegistered( this.shortcut ), ' shortcut status ' )
+    const registration = globalShortcut.register( this.shortcut, f => this.window.webContents.send( 'keyboard-shortcut', 'toggle-block' ) )
+    if( process.env.debug ) console.log( globalShortcut.isRegistered( this.shortcut ), ' shortcut status ' )
   }
 
   configIpc() {
