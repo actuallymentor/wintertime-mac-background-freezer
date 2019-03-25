@@ -26,6 +26,8 @@ When you want to stop the freezing process, click 'Stop freezing'.
 
 If for some reason one of the frozen apps stays frozen, use the 'Panic button' to defrost everything on your system.
 
+**Beta**: Command + shift + space toggles block/unblock.
+
 ## What it does
 
 ![ App Demo ]( ./src/demo.png )

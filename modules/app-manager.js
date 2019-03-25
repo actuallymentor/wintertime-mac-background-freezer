@@ -2,7 +2,7 @@ const fs = require('fs').promises
 const homedir = require('os').homedir()
 const { name } = require( `${__dirname}/../package.json` )
 const { block, unBlock, panicUnblockAll } = require( './process-management' )
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron')
 
 // WIndow management
 const WindowListener = require( './events' )
@@ -20,6 +20,9 @@ class App {
     this.currentWindow = new WindowListener( 500 )
     this.windowSize = { width: 400, height: 700 }
 
+    // Choices
+    this.shortcut = 'Command+Shift+Space'
+
     // Initialisations
     this.configElectron()
     this.configIpc()
@@ -30,16 +33,28 @@ class App {
 
   toggleBlocking( ) {
     this.blocking = !this.blocking
+    if( !this.blocking ) panicUnblockAll()
+    if( this.blocking ) this.doBlocking
   }
 
   configElectron() {
     // Application configs
-    this.app.on( 'ready', f => this.render() )
+    this.app.on( 'ready', f => {
+      this.registerShortcuts()
+      this.render()
+    } )
     this.app.on( 'window-all-closed', f => {
       this.globalBlocklist.map( item => unBlock( item ) )
+      globalShortcut.unregisterAll()
       this.app.quit()
     } )
     this.app.on( 'activate', f => this.reload() )
+  }
+
+  registerShortcuts( ) {
+    const registration = globalShortcut.register( this.shortcut, f => this.toggleBlocking() )
+    if( !registration ) console.log( 'Shortcut not registered' )
+    console.log( globalShortcut.isRegistered( this.shortcut ), ' shortcut status ' )
   }
 
   configIpc() {
