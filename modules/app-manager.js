@@ -156,7 +156,7 @@ class App {
     return fetch( this.rawRepo )
     .then(res => res.json() )
     .then( json => {
-      if( json.version != version ) {
+      if( json.version > version ) {
         this.updateWindow = new BrowserWindow( { width: 400, height: 200 } )
         this.updateWindow.loadFile( `${ __dirname }/../src/update.html` )
         this.window.on( 'closed', f => this.updateWindow = null )
