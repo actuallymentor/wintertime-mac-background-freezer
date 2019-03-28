@@ -1,7 +1,7 @@
 const fs = require('fs').promises
 const homedir = require('os').homedir()
 const { name } = require( `${__dirname}/../package.json` )
-const { block, unBlock, panicUnblockAll } = require( './process-management' )
+const { block, unBlock, panicUnblockAll, say } = require( './process-management' )
 const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron')
 
 // WIndow management
@@ -42,15 +42,25 @@ class App {
       this.render()
     } )
     this.app.on( 'window-all-closed', f => {
-      this.globalBlocklist.map( item => unBlock( item ) )
-      globalShortcut.unregisterAll()
-      this.app.quit()
+      return panicUnblockAll()
+      .then( f => {
+        globalShortcut.unregisterAll()
+        this.app.quit()
+      } )
+      
     } )
     this.app.on( 'activate', f => this.reload() )
   }
 
   registerShortcuts( ) {
-    const registration = globalShortcut.register( this.shortcut, f => this.window.webContents.send( 'keyboard-shortcut', 'toggle-block' ) )
+    const registration = globalShortcut.register( this.shortcut, f => {
+
+      // Tell interface to do action
+      this.window.webContents.send( 'keyboard-shortcut', 'toggle-block' )
+
+      // Shortcut sends signal, so the this.blocking = true means after full execution it is off
+      say( `Wintertime ${ this.blocking ? 'OFF' : 'ON' }` )
+    } )
     if( process.env.debug ) console.log( globalShortcut.isRegistered( this.shortcut ), ' shortcut status ' )
   }
 
@@ -91,13 +101,13 @@ class App {
       this.toggleBlocking()
 
       // If off restore all
-      if( !this.blocking ) this.globalBlocklist.map( item => unBlock( item ) )
+      // Changed this.globalBlocklist.map( item => unBlock( item ) ) to panicunblock for simplicity
+      if( !this.blocking ) panicUnblockAll()
       // If blocking, manually trigger window check 
       if( this.blocking ) this.currentWindow.checkWindow().then( currentApp => this.doBlocking( currentApp ) )
 
       // Save new data to config
       fs.writeFile( `${ homedir }/Library/Application Support/${ name.toLowerCase() }/blocklist`, this.globalBlocklist, 'utf8' )
-      .then( f => console.log( 'Saved configs' ) )
 
     } )
 
