@@ -13,7 +13,7 @@ Install the latest version from the [releases tab]( https://github.com/actuallym
 Or via homebrew:
 
 ```shell
-brew cask install Wintertime
+brew cask install wintertime
 ```
 
 ## Usage
