@@ -71,7 +71,10 @@ const handleInteractions = f => {
 	}
 
 	// On form submit
-	form.addEventListener( 'submit', submitFormData )
+	form.addEventListener( 'submit',  e => {
+		e.preventDefault()
+		submitFormData()
+	} )
 
 	// On panic
 	q( '#panic' ).addEventListener( 'click', f => ipcRenderer.send( 'panic', true ) )
