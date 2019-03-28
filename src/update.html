@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="./style.css">
+  </head>
+  <body>
+    <p>You are usign an outdated version of Wintertime.</p>
+    <br>
+    <p><a id="updatebutton" href="https://github.com/actuallymentor/wintertime-mac-background-freezer/releases">Download the latest version vere.</a></p>
+    <br>
+    <p>If you used brew, run brew cask upgrade wintertime</p>
+
+    <script type="text/javascript">
+      const q = query => document.querySelector( query )
+      const { shell } = require( 'electron' )
+      q( '#updatebutton' ).addEventListener( 'click', e => {
+      e.preventDefault()
+      shell.openExternal( e.target.href )
+    } )
+    </script>
+    
+  </body>
+</html>

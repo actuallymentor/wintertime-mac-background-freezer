@@ -4,7 +4,8 @@
   "description": "Freeze background apps",
   "main": "app.js",
   "dependencies": {
-    "active-win": "^4.1.0"
+    "active-win": "^4.1.0",
+    "electron-fetch": "^1.3.0"
   },
   "devDependencies": {
     "electron": "^4.0.8",

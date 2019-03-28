@@ -1,8 +1,10 @@
 const fs = require('fs').promises
 const homedir = require('os').homedir()
-const { name } = require( `${__dirname}/../package.json` )
+const { name, version } = require( `${__dirname}/../package.json` )
 const { block, unBlock, panicUnblockAll, say } = require( './process-management' )
 const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron')
+const fetch = require( 'electron-fetch' ).default
+
 
 // WIndow management
 const WindowListener = require( './events' )
@@ -19,6 +21,7 @@ class App {
     this.app = app
     this.currentWindow = new WindowListener( 500 )
     this.windowSize = { width: 400, height: 700 }
+    this.rawRepo = 'https://raw.githubusercontent.com/actuallymentor/wintertime-mac-background-freezer/master/package.json'
 
     // Choices
     this.shortcut = 'Command+Shift+Space'
@@ -27,6 +30,7 @@ class App {
     this.configElectron()
     this.configIpc()
     this.configWindowcheck()
+    this.checkUpdates( version )
 
     
   }
@@ -146,6 +150,19 @@ class App {
 
   reload() {
     if( this.window == null ) this.init()
+  }
+
+  checkUpdates( version ) {
+    return fetch( this.rawRepo )
+    .then(res => res.json() )
+    .then( json => {
+      if( json.version != version ) {
+        this.updateWindow = new BrowserWindow( { width: 400, height: 200 } )
+        this.updateWindow.loadFile( `${ __dirname }/../src/update.html` )
+        this.window.on( 'closed', f => this.updateWindow = null )
+        if( process.env.debug ) this.updateWindow.webContents.openDevTools( )
+      }
+    } )
   }
 
 }
